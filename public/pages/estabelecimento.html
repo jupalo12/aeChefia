@@ -16,18 +16,17 @@
     <nav role="navigation">
       <div id="menuToggle">
 
-        <input onclick="Menu()" id="menu-js" type="checkbox" />            
+        <input onclick="Menu()" id="menu-js" type="checkbox" />
         <span></span>
         <span></span>
         <span></span>
         <ul id="menu">
           <a href="#"><li><a href="/dashboard">Home</a></li></a>
           <a href="#"><li><a href="/administrar">Adm</a></li></a>
-          <a href="#" ><li> <a href="/">Login</a></li></a>
+          <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
           <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
-          <a href="#">
-            <li><a onclick="logout()">Logout</a></li>
-          </a>
+      <li><a onclick="logout()">Logout</a></li>
+
         </ul>
       </div>
     </nav>
@@ -56,16 +55,6 @@
         required><br>
 </label>
 </div>
-<div>
-  <div id="myModal" class="modal">
-      <div class="modal-content">
-          <span onclick="reset()" class="close">&times;</span>
-          <h1>Confirme os dados do estabelecimento</h1>
-          <img src="" id="imgModal">
-      </div>
-  </div>
-</div>
-<button onclick="Modal()">modal</button>
 
   <footer class="divcenter footer footerAdd">
     <h1 class="divcenter">Mesas disponíveis:</h1>
@@ -75,7 +64,7 @@
         <input type="button" class="input-menos" id="minus" value='+' onclick="process(1)">
       </div> 
 
-      <a href="../pages/estabelecimento-sucesso.html"><button  class="btn redBtn redBtn-cad" onclick="estabelecimento.cadastrar()">Cadastrar estabelecimento</button><br></a>
+      <button  class="btn redBtn redBtn-cad" onclick="estabelecimento.cadastrar()">Cadastrar estabelecimento</button><br>
 </footer>
 <div class="divAnuncio" id="divAnuncio">Acesse o site por um dispositivo mobile</div>
 </body>

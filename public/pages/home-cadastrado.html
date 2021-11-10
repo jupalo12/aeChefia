@@ -30,7 +30,7 @@
           <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
           <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
       <li><a onclick="logout()">Logout</a></li>
-
+      <a href="#"><li><a href="/estabelecimento">Novo Estabelecimento</a></li></a>
         </ul>
       </div>
     </nav>
@@ -52,7 +52,7 @@
           <div class="card">
             <div class="card-div">
               <span class="spanAdd">Funcionários</span>
-              <a href="/funcionario"><button class="btnAdd">+</button></a>
+             <button class="btnAdd" onclick="funcionario.verificaEstabelecimento()">+</button>
               <input id="quantidade1" class="quantidadeAdd" type="text" value="" disabled />
 
             </div>
