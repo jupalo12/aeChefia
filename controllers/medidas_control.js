@@ -9,7 +9,7 @@ exports.getAll = async ( req, res ) => {
             }
             const response = {
                 quantidade: result.length,
-                bebita_marca:  result.map( prod => {
+                bebida_medida:  result.map( prod => {
                     return{
                         medida: prod.medida,
                         porcao: prod.porcao

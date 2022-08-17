@@ -2,7 +2,7 @@ const route = require('express').Router();
 
 const controller = require('../controllers/funcionario-controller');
 
-route.get('/', (req, res) => {
+route.get('/cadastro', (req, res) => {
     res.sendFile(__basedir + '/public/pages/funcionario.html');
 })
 
@@ -17,7 +17,7 @@ route.get('/lista', (req, res) => {
 
 
 
-route.post('/cadastro', controller.postFuncionario);
+route.post('/inserido', controller.postFuncionario);
 
 route.get('/todos', controller.getFunc);
 

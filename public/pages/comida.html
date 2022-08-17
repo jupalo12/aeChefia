@@ -45,7 +45,9 @@
        <label style=" place-self: inherit;width: 83%;color: #666666;">Nome</label>
         <input class="inputLine" placeholder="Ex: Ribs Fries" type="text" id="comida" > <br>
         <label style=" place-self: inherit;width: 83%;color: #666666;">Tipo de porção</label>
-        <input class="inputLine" placeholder="Ex: M" type="text" id="medida"> <br>
+        <input style="color: black;" class="dropdown inputLine" placeholder="Selecione uma opção" type="text" id="medida" list="nome-medida"> <br>
+        <datalist id="nome-medida">
+        </datalist>
         <label style=" place-self: inherit;width: 83%;color: #666666;">Valor da venda</label>
         <!-- <input class="inputLine" placeholder="" type="text"> <br> -->
         <div style="width: 87%;" class="input-icon" style="text-align: center;">

@@ -47,3 +47,26 @@ exports.getMarca = async(req, res) => {
     }
 
 }
+
+exports.getAll = async(req, res) => {
+    try {
+        const query = `SELECT * FROM marcas;`
+        
+        const result = await mysql.execute( query );
+
+        const response = {
+            marcas: result.map( mar => {
+                return{
+                    id_marcas: mar.id_marcas,
+                    marca: mar.nome_marca
+                }
+            })
+
+            }
+        return res.status( 200 ).send( response )
+
+    } catch ( error ) {
+        return res.status( 500 ).send( { error: error } )
+    }
+
+}
