@@ -731,7 +731,7 @@
         padding-left: 0;
     }
     .footerAdd {
-        padding-bottom: 193px;
+        padding-bottom: 56px;
     }
     .quantidadeAdd {
         width: 81px;
@@ -847,6 +847,7 @@
         color: #FFFFFF;
         outline: none;
         padding-top: 5px;
+
     }
     .input-icon {
         width: 100%;

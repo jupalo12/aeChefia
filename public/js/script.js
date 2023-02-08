@@ -809,8 +809,10 @@ class Funcionario {
     funcionario.nome_funcionario = document.getElementById('nome_funcionario').value;
     funcionario.email = document.getElementById('email').value;
     funcionario.login = document.getElementById('login').value;
-    funcionario.id_estabelecimento = localStorage.getItem('estabelecimento')
-    funcionario.senha = document.getElementById('senha').value
+    funcionario.senha = document.getElementById('senha').value;
+    funcionario.id_estabelecimento = parseInt(localStorage.getItem('estabelecimento'))
+    console.log(typeof(funcionario.id_estabelecimento))
+    console.log(funcionario.id_estabelecimento)
     fetch('http://localhost:3000/funcionario/inserido/', {
       method: 'POST',
       headers:
@@ -819,18 +821,10 @@ class Funcionario {
     }).then(result => {
       return result.json();
     }).then(data => {
-      console.log('to por aqui')
       location.assign( "/funcionario/sucesso" )
     });
   }
 
-  verificaEstabelecimento(){
-    if(localStorage.getItem('estabelecimento') == null){
-      alert('escolha um estabelecimento')
-    }else{
-      location.assign('/funcionario/cadastro')
-    }
-  }
 
 }
 
