@@ -188,7 +188,7 @@ class Usuario {
 
   async adicionar(usuario) {
 
-    fetch('http://localhost:3000/proprietario/cadastro', {
+    fetch('http://localhost:3031/proprietario/cadastro', {
       method: 'POST',
       headers:
         { "content-type": "application/json" },
@@ -374,7 +374,7 @@ class Estabelecimento {
 
   }
   listaEstabelecimento() {
-    fetch('http://localhost:3000/estabelecimento/listar/' + localStorage.getItem("id_proprietario"), {
+    fetch('http://localhost:3031/estabelecimento/listar/' + localStorage.getItem("id_proprietario"), {
 
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -411,7 +411,7 @@ class Estabelecimento {
     formData.append('id_proprietario', estabelecimento.id_proprietario)
 
 
-    fetch('http://localhost:3000/estabelecimento/cadastro', {
+    fetch('http://localhost:3031/estabelecimento/cadastro', {
       method: 'POST',
       body: formData,
 
@@ -446,7 +446,7 @@ class Estabelecimento {
 
   verificar() {
 
-    fetch('http://localhost:3000/estabelecimento/listar/' + localStorage.getItem("id_proprietario"), {
+    fetch('http://localhost:3031/estabelecimento/listar/' + localStorage.getItem("id_proprietario"), {
 
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -462,7 +462,7 @@ class Estabelecimento {
   }
   selecionar_estabelecimento() {
     let estabelecimento_input = document.getElementById('estab_input').value
-    fetch('http://localhost:3000/estabelecimento/' + estabelecimento_input, {
+    fetch('http://localhost:3031/estabelecimento/' + estabelecimento_input, {
 
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -490,7 +490,7 @@ class Estabelecimento {
       let aviso = document.getElementById('aviso')
       aviso.innerHTML = `<h2 style="color: red; text-align: center; padding-top: 2%;letter-spacing: 1px;" class="h2-Add" >Selecione um estabelecimento para ver as mesas<br> `
     }
-    fetch('http://localhost:3000/estabelecimento/mesa/' + localStorage.getItem("estabelecimento"), {
+    fetch('http://localhost:3031/estabelecimento/mesa/' + localStorage.getItem("estabelecimento"), {
 
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -587,7 +587,7 @@ function onSignIn(googleUser) {
 
     if (xhr.responseText == 'success') {
 
-      fetch('http://localhost:3000/usuarios/' + email, {
+      fetch('http://localhost:3031/usuarios/' + email, {
       })
         .then(response => response.json())
         .then(data => {
@@ -596,7 +596,7 @@ function onSignIn(googleUser) {
 
             try {
 
-              fetch('http://localhost:3000/usuarios/login', {
+              fetch('http://localhost:3031/usuarios/login', {
                 method: 'POST',
                 body: JSON.stringify({
                   email: email,
@@ -640,7 +640,7 @@ function jwt_login() {
   };
 
 
-  fetch('http://localhost:3000/usuarios/login', {
+  fetch('http://localhost:3031/usuarios/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -686,7 +686,7 @@ function listarEstab() {
 
 function alertEstab() {
   let email = localStorage.getItem("email");
-  fetch('http://localhost:3000/estabelecimento/listar/' + email, {
+  fetch('http://localhost:3031/estabelecimento/listar/' + email, {
     method: 'GET'
   }).then(result => {
     return result.json();
@@ -698,7 +698,7 @@ function alertEstab() {
 
 function jwt_auth_load() {
 
-  fetch('http://localhost:3000/home/entrar', {
+  fetch('http://localhost:3031/home/entrar', {
     headers: {
       'Authorization': `${localStorage.getItem("ourToken")}`
     }
@@ -714,7 +714,7 @@ function jwt_auth_load() {
 }
 
 function logout() {
-  fetch('http://localhost:3000/logout', {
+  fetch('http://localhost:3031/logout', {
 
   }).then(result => {
     localStorage.clear();
@@ -729,7 +729,7 @@ class Proprietario {
 
   async buscarProprietario() {
 
-    fetch('http://localhost:3000/proprietario/' + localStorage.getItem('id_proprietario'))
+    fetch('http://localhost:3031/proprietario/' + localStorage.getItem('id_proprietario'))
       .then(result => {
         return result.json()
       }).then(data => {
@@ -743,7 +743,7 @@ var proprietario = new Proprietario
 
 class Funcionario {
   funcionario_quantidade() {
-    fetch('http://localhost:3000/funcionario/quantidade/' + localStorage.getItem('estabelecimento'), {
+    fetch('http://localhost:3031/funcionario/quantidade/' + localStorage.getItem('estabelecimento'), {
       method: 'GET',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -755,7 +755,7 @@ class Funcionario {
   }
 
   listaFuncionario() {
-    fetch('http://localhost:3000/funcionario/quantidade/' + localStorage.getItem('estabelecimento'), {
+    fetch('http://localhost:3031/funcionario/quantidade/' + localStorage.getItem('estabelecimento'), {
       method: 'GET',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -813,7 +813,7 @@ class Funcionario {
     funcionario.id_estabelecimento = parseInt(localStorage.getItem('estabelecimento'))
     console.log(typeof(funcionario.id_estabelecimento))
     console.log(funcionario.id_estabelecimento)
-    fetch('http://localhost:3000/funcionario/inserido/', {
+    fetch('http://localhost:3031/funcionario/inserido/', {
       method: 'POST',
       headers:
         { "content-type": "application/json" },
@@ -839,7 +839,7 @@ class Cardapio {
 
 
   deletarCardapio(id_cardapio) {
-    fetch('http://localhost:3000/cardapio/remover/' + id_cardapio, {
+    fetch('http://localhost:3031/cardapio/remover/' + id_cardapio, {
       method: 'DELETE',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -849,7 +849,7 @@ class Cardapio {
     })
   }
   quantidade_cardapio() {
-    fetch('http://localhost:3000/cardapio/quantidade/' + localStorage.getItem('estabelecimento'), {
+    fetch('http://localhost:3031/cardapio/quantidade/' + localStorage.getItem('estabelecimento'), {
       method: 'GET',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -864,7 +864,7 @@ class Cardapio {
     if(localStorage.getItem('estabelecimento') == null){
       alert('escolha um estabelecimento')
     }else{
-      fetch('http://localhost:3000/cardapio/cadastro/' + localStorage.getItem('estabelecimento'), {
+      fetch('http://localhost:3031/cardapio/cadastro/' + localStorage.getItem('estabelecimento'), {
         method: 'POST',
         headers: { "content-type": "application/json" },
       }).then(result => {
@@ -879,7 +879,7 @@ class Cardapio {
 
 
   criarCardapio() {
-    fetch('http://localhost:3000/cardapio/quantidade/' + localStorage.getItem('estabelecimento'), {
+    fetch('http://localhost:3031/cardapio/quantidade/' + localStorage.getItem('estabelecimento'), {
       method: 'GET',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -891,7 +891,7 @@ class Cardapio {
       })
 
       for (let i = 0; i < this.arrayCardapio.length; i++) {
-        fetch('http://localhost:3000/cardapio/item/' + this.arrayCardapio[i].id_cardapio, {
+        fetch('http://localhost:3031/cardapio/item/' + this.arrayCardapio[i].id_cardapio, {
           method: 'GET',
           headers: { "content-type": "application/json" }
         }).then(result => {
@@ -925,7 +925,7 @@ selecionarCardapio(){
 
 }
 drop_cardapio(){
-  fetch('http://localhost:3000/cardapio/listar/' + localStorage.getItem("estabelecimento"), {
+  fetch('http://localhost:3031/cardapio/listar/' + localStorage.getItem("estabelecimento"), {
 
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -945,7 +945,7 @@ drop_cardapio(){
   listaCardapio() {
 
     let tipo = document.getElementById('tipo').value
-    fetch('http://localhost:3000/cardapio/tipo/' + tipo, {
+    fetch('http://localhost:3031/cardapio/tipo/' + tipo, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       }
@@ -953,7 +953,7 @@ drop_cardapio(){
       return result.json()
     }).then(data => {
       localStorage.setItem("id_item_tipo", data.tipos[0].id_item_tipo)
-      fetch('http://localhost:3000/cardapio/item/' + localStorage.getItem('id_cardapio') + '/' + localStorage.getItem('id_item_tipo'), {
+      fetch('http://localhost:3031/cardapio/item/' + localStorage.getItem('id_cardapio') + '/' + localStorage.getItem('id_item_tipo'), {
         method: 'GET',
         headers: { "content-type": "application/json" }
       }).then(result => {
@@ -968,7 +968,7 @@ drop_cardapio(){
           let itens = data.cardapio[i].id_itens_do_cardapio
 
           if (localStorage.getItem("id_item_tipo") == 1) {
-            fetch('http://localhost:3000/marca/pegar/' + marcas, {
+            fetch('http://localhost:3031/marca/pegar/' + marcas, {
               headers: {
                 'Content-Type': 'application/json;charset=utf-8'
               }
@@ -977,7 +977,7 @@ drop_cardapio(){
             }).then(data => {
               marcas = data.marcas[0].marca
 
-              fetch('http://localhost:3000/medida/pegar/' + medidas, {
+              fetch('http://localhost:3031/medida/pegar/' + medidas, {
                 headers: {
                   'Content-Type': 'application/json;charset=utf-8'
                 }
@@ -990,6 +990,7 @@ drop_cardapio(){
                 item.classList.add('foi-bebida')
                 item.setAttribute('value', itens)
                 if (item.classList.contains('foi-comida') == false) {
+                  
                   let comida = document.getElementsByClassName('foi-comida')
                   for (let comer = 0; comer < comida.length; comer++) {
                     comida[comer].style.display = 'none'
@@ -1013,7 +1014,7 @@ drop_cardapio(){
               })
             })
           } else {
-            fetch('http://localhost:3000/medida/pegar/' + medidas, {
+            fetch('http://localhost:3031/medida/pegar/' + medidas, {
               headers: {
                 'Content-Type': 'application/json;charset=utf-8'
               }
@@ -1078,7 +1079,7 @@ drop_cardapio(){
   }
 
   excluirProduto(item) {
-    fetch('http://localhost:3000/item/remover/' + item, {
+    fetch('http://localhost:3031/item/remover/' + item, {
       method: 'DELETE',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -1121,7 +1122,7 @@ class Comida {
   }
   addComida(comida) {
     if (localStorage.getItem('item') == 'null') {
-      fetch('http://localhost:3000/medida/' + comida.id_medidas, {
+      fetch('http://localhost:3031/medida/' + comida.id_medidas, {
         method: 'GET',
         headers: { "content-type": "application/json" }
       }).then(result => {
@@ -1130,7 +1131,7 @@ class Comida {
 
         comida.id_medidas = data.medidas[0].id_medidas
 
-        fetch('http://localhost:3000/item/cadastro/', {
+        fetch('http://localhost:3031/item/cadastro/', {
           method: 'POST',
           headers:
             { "content-type": "application/json" },
@@ -1197,7 +1198,7 @@ class Comida {
       document.getElementById('aviso').innerHTML = `<h2 style="color: #666666; text-align: center; padding-top: 2%;letter-spacing: 1px;" class="h2-Add">Selecione um
       cardapio para ver as comidas<br>`
     }
-    fetch('http://localhost:3000/cardapio/item/' + localStorage.getItem('id_cardapio') + '/' + localStorage.getItem('id_item_tipo'), {
+    fetch('http://localhost:3031/cardapio/item/' + localStorage.getItem('id_cardapio') + '/' + localStorage.getItem('id_item_tipo'), {
       method: 'GET',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -1208,7 +1209,7 @@ class Comida {
         let nome_comida = data.cardapio[i].nome_comida
         let preco = data.cardapio[i].preco
         let id_itens_do_cardapio = data.cardapio[i].id_itens_do_cardapio
-        fetch('http://localhost:3000/medida/pegar/' + medidas, {
+        fetch('http://localhost:3031/medida/pegar/' + medidas, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
           }
@@ -1281,7 +1282,7 @@ class Comida {
     if(localStorage.getItem('id_cardapio') == null){
       alert('Escolha um Cardapio')
     }else{
-      fetch('http://localhost:3000/medida',{
+      fetch('http://localhost:3031/medida',{
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
@@ -1297,7 +1298,7 @@ class Comida {
       })
     }
     if (localStorage.getItem('item') != 'null') {
-      fetch('http://localhost:3000/item/unico/' + localStorage.getItem('item'), {
+      fetch('http://localhost:3031/item/unico/' + localStorage.getItem('item'), {
         method: 'GET',
         headers: { "content-type": "application/json" }
       }).then(result => {
@@ -1307,7 +1308,7 @@ class Comida {
         document.getElementById('comida').value = data.itens[0].nome_comida
         let medidas = data.itens[0].id_medidas
         document.getElementById('botao_comida').innerHTML = `Atualizar Comida `
-        fetch('http://localhost:3000/medida/pegar/' + medidas, {
+        fetch('http://localhost:3031/medida/pegar/' + medidas, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
           }
@@ -1366,7 +1367,7 @@ class Bebida {
       document.getElementById('aviso').innerHTML = `<h2 style="color: #666666; text-align: center; padding-top: 2%;letter-spacing: 1px;" class="h2-Add">Selecione um
       cardapio para ver as bebidas<br>`
     }
-    fetch('http://localhost:3000/cardapio/item/' + localStorage.getItem('id_cardapio') + '/' + localStorage.getItem('id_item_tipo'), {
+    fetch('http://localhost:3031/cardapio/item/' + localStorage.getItem('id_cardapio') + '/' + localStorage.getItem('id_item_tipo'), {
       method: 'GET',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -1378,7 +1379,7 @@ class Bebida {
         let marcas = data.cardapio[i].id_marcas
         let id_itens_do_cardapio = data.cardapio[i].id_itens_do_cardapio
 
-        fetch('http://localhost:3000/medida/pegar/' + medidas, {
+        fetch('http://localhost:3031/medida/pegar/' + medidas, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
           }
@@ -1387,7 +1388,7 @@ class Bebida {
         }).then(data => {
           medidas = data.medidas[0].medida
 
-          fetch('http://localhost:3000/marca/pegar/' + marcas, {
+          fetch('http://localhost:3031/marca/pegar/' + marcas, {
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
             }
@@ -1460,7 +1461,7 @@ class Bebida {
 
   addBebida(bebida) {
     if (localStorage.getItem('item') == 'null') {
-      fetch('http://localhost:3000/bebidatipo/' + bebida.id_bebida_tipo, {
+      fetch('http://localhost:3031/bebidatipo/' + bebida.id_bebida_tipo, {
         method: 'GET',
         headers: { "content-type": "application/json" }
       }).then(result => {
@@ -1469,7 +1470,7 @@ class Bebida {
         bebida.id_bebida_tipo = data.bebida[0].id_bebida_tipo;
 
 
-        fetch('http://localhost:3000/medida/' + bebida.id_medidas, {
+        fetch('http://localhost:3031/medida/' + bebida.id_medidas, {
           method: 'GET',
           headers: { "content-type": "application/json" }
         }).then(result => {
@@ -1478,7 +1479,7 @@ class Bebida {
 
           bebida.id_medidas = data.medidas[0].id_medidas
 
-          fetch('http://localhost:3000/marca/' + bebida.id_marcas, {
+          fetch('http://localhost:3031/marca/' + bebida.id_marcas, {
             method: 'GET',
             headers: { "content-type": "application/json" }
           }).then(result => {
@@ -1486,7 +1487,7 @@ class Bebida {
           }).then(data => {
 
             bebida.id_marcas = data.marcas[0].id_marcas
-            fetch('http://localhost:3000/item/cadastro/', {
+            fetch('http://localhost:3031/item/cadastro/', {
               method: 'POST',
               headers:
                 { "content-type": "application/json" },
@@ -1561,7 +1562,7 @@ class Bebida {
       alert('Escolha um Cardapio')
     }else{
 
-      fetch('http://localhost:3000/marca',{
+      fetch('http://localhost:3031/marca',{
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
@@ -1574,7 +1575,7 @@ class Bebida {
         }
 
       })
-      fetch('http://localhost:3000/bebidatipo',{
+      fetch('http://localhost:3031/bebidatipo',{
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
@@ -1587,7 +1588,7 @@ class Bebida {
           tipao.appendChild(tipo)
         }
       })
-      fetch('http://localhost:3000/medida',{
+      fetch('http://localhost:3031/medida',{
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
@@ -1603,7 +1604,7 @@ class Bebida {
       })
     }
     if (localStorage.getItem('item') != 'null') {
-      fetch('http://localhost:3000/item/unico/' + localStorage.getItem('item'), {
+      fetch('http://localhost:3031/item/unico/' + localStorage.getItem('item'), {
         method: 'GET',
         headers: { "content-type": "application/json" }
       }).then(result => {
@@ -1618,7 +1619,7 @@ class Bebida {
         let bebida_tipo = data.itens[0].id_bebida_tipo
         console.log(bebida_tipo)
         document.getElementById('botao_bebida').innerHTML = `Atualizar Bebida `
-        fetch('http://localhost:3000/bebidatipo/buscar/' + bebida_tipo, {
+        fetch('http://localhost:3031/bebidatipo/buscar/' + bebida_tipo, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
           }
@@ -1629,7 +1630,7 @@ class Bebida {
           bebida_tipo = data.bebida[0].nome_tipo
           document.getElementById('tipo_bebida').value = bebida_tipo
         })
-        fetch('http://localhost:3000/medida/pegar/' + medidas, {
+        fetch('http://localhost:3031/medida/pegar/' + medidas, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
           }
@@ -1639,7 +1640,7 @@ class Bebida {
           medidas = data.medidas[0].medida
           document.getElementById('medida').value = medidas
           
-          fetch('http://localhost:3000/marca/pegar/' + marcas, {
+          fetch('http://localhost:3031/marca/pegar/' + marcas, {
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
             }
@@ -1683,7 +1684,7 @@ class Comanda {
     document.getElementById('mesa').value = `${localStorage.getItem('mesa')}`
   }
   listaCliente() {
-    fetch('http://localhost:3000/comanda/cliente/' + localStorage.getItem("mesa") + '/' + localStorage.getItem('estabelecimento'), {
+    fetch('http://localhost:3031/comanda/cliente/' + localStorage.getItem("mesa") + '/' + localStorage.getItem('estabelecimento'), {
       method: 'GET',
       headers: { "content-type": "application/json" }
     }).then(result => {
@@ -1713,7 +1714,7 @@ class Comanda {
     pedido.id_comanda = localStorage.getItem('id_comanda')
     pedido.id_itens_do_cardapio = localStorage.getItem('id_itens_do_cardapio')
     pedido.id_estabelecimento = localStorage.getItem("estabelecimento")
-    fetch('http://localhost:3000/pedidocomanda/cadastro/', {
+    fetch('http://localhost:3031/pedidocomanda/cadastro/', {
       method: 'POST',
       headers: { "content-type": "application/json" },
       body: JSON.stringify(pedido)
@@ -1738,7 +1739,7 @@ class Comanda {
     comanda.telefone = document.getElementById('telefone').value;
     comanda.status = true
     comanda.id_estabelecimento = localStorage.getItem("estabelecimento")
-    fetch('http://localhost:3000/comanda/cadastro/', {
+    fetch('http://localhost:3031/comanda/cadastro/', {
       method: 'POST',
       headers:
         { "content-type": "application/json" },
@@ -1756,7 +1757,7 @@ class Comanda {
     });
   }
   abrirComanda() {
-    fetch('http://localhost:3000/pedidocomanda/valor/' + localStorage.getItem("id_comanda"), {
+    fetch('http://localhost:3031/pedidocomanda/valor/' + localStorage.getItem("id_comanda"), {
       method: 'GET',
       headers:
         { "content-type": "application/json" }
@@ -1766,7 +1767,7 @@ class Comanda {
       let valor
       for (let i = 0; i < data.pedidos.length; i++) {
         let quant = data.pedidos[i].quant
-        fetch('http://localhost:3000/item/unico/' + data.pedidos[i].id_itens_do_cardapio, {
+        fetch('http://localhost:3031/item/unico/' + data.pedidos[i].id_itens_do_cardapio, {
           method: 'GET',
           headers:
             { "content-type": "application/json" }
@@ -1797,7 +1798,7 @@ class Comanda {
     close.valor = document.getElementById("valor-comanda").value
     close.id_estabelecimento = localStorage.getItem('estabelecimento')
 
-    fetch('http://localhost:3000/mesa/', {
+    fetch('http://localhost:3031/mesa/', {
       method: 'POST',
       headers:
         { "content-type": "application/json" },
@@ -1812,7 +1813,7 @@ class Comanda {
     })
   }
   atualizar_mesa() {
-    fetch('http://localhost:3000/comanda/atualizar/' + localStorage.getItem('id_comanda') + '/' + localStorage.getItem('estabelecimento'), {
+    fetch('http://localhost:3031/comanda/atualizar/' + localStorage.getItem('id_comanda') + '/' + localStorage.getItem('estabelecimento'), {
       method: 'PATCH'
     }).then(result => {
       return result.json();
@@ -1822,7 +1823,7 @@ class Comanda {
 
   }
   abrirCaixa() {
-    fetch('http://localhost:3000/mesa/valor/' + localStorage.getItem("estabelecimento"), {
+    fetch('http://localhost:3031/mesa/valor/' + localStorage.getItem("estabelecimento"), {
       method: 'GET',
       headers:
         { "content-type": "application/json" }
@@ -1855,7 +1856,7 @@ class Comanda {
     console.log(close.valor)
     close.id_estabelecimento = localStorage.getItem('estabelecimento')
 
-    fetch('http://localhost:3000/mesa/', {
+    fetch('http://localhost:3031/mesa/', {
       method: 'POST',
       headers:
         { "content-type": "application/json" },
@@ -1872,7 +1873,7 @@ class Comanda {
   }
   disponibilidade_mesa() {
     if (localStorage.getItem("estabelecimento") != undefined) {
-      fetch('http://localhost:3000/estabelecimento/mesa/' + localStorage.getItem("estabelecimento"), {
+      fetch('http://localhost:3031/estabelecimento/mesa/' + localStorage.getItem("estabelecimento"), {
 
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -1881,7 +1882,7 @@ class Comanda {
         return result.json()
       }).then(data => {
         for (let mesa = 0; mesa < data.estabelecimento[0].mesa; mesa++) {
-          fetch('http://localhost:3000/mesa/disponibilidade/' + mesa + '/' + localStorage.getItem('estabelecimento'), {
+          fetch('http://localhost:3031/mesa/disponibilidade/' + mesa + '/' + localStorage.getItem('estabelecimento'), {
             method: 'GET',
             headers: { "content-type": "application/json" }
           }).then(result => {
