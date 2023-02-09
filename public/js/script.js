@@ -1,7 +1,6 @@
 function ok() {
   alert("clickou")
 };
-
 function process(mesa) {
   var value = parseInt(document.getElementById("quant").value);
   value += mesa;
@@ -470,11 +469,11 @@ class Estabelecimento {
     }).then(result => {
       return result.json()
     }).then(data => {
-      if(localStorage.getItem('id_cardapio') == null){
+      if (localStorage.getItem('id_cardapio') == null) {
         localStorage.setItem("estabelecimento", data.estabelecimento[0].id_estabelecimento)
         cardapio.quantidade_cardapio();
         funcionario.funcionario_quantidade();
-      }else{
+      } else {
         localStorage.removeItem('id_cardapio')
         localStorage.setItem("estabelecimento", data.estabelecimento[0].id_estabelecimento)
         cardapio.quantidade_cardapio();
@@ -811,7 +810,7 @@ class Funcionario {
     funcionario.login = document.getElementById('login').value;
     funcionario.senha = document.getElementById('senha').value;
     funcionario.id_estabelecimento = parseInt(localStorage.getItem('estabelecimento'))
-    console.log(typeof(funcionario.id_estabelecimento))
+    console.log(typeof (funcionario.id_estabelecimento))
     console.log(funcionario.id_estabelecimento)
     fetch('http://localhost:3031/funcionario/inserido/', {
       method: 'POST',
@@ -821,7 +820,7 @@ class Funcionario {
     }).then(result => {
       return result.json();
     }).then(data => {
-      location.assign( "/funcionario/sucesso" )
+      location.assign("/funcionario/sucesso")
     });
   }
 
@@ -834,10 +833,12 @@ var funcionario = new Funcionario
 class Cardapio {
 
   constructor() {
+
     this.arrayCardapio = []
   }
-
-
+  search() {
+    localStorage.setItem('search', 1)
+  }
   deletarCardapio(id_cardapio) {
     fetch('http://localhost:3031/cardapio/remover/' + id_cardapio, {
       method: 'DELETE',
@@ -861,9 +862,9 @@ class Cardapio {
   }
 
   addCardapio() {
-    if(localStorage.getItem('estabelecimento') == null){
+    if (localStorage.getItem('estabelecimento') == null) {
       alert('escolha um estabelecimento')
-    }else{
+    } else {
       fetch('http://localhost:3031/cardapio/cadastro/' + localStorage.getItem('estabelecimento'), {
         method: 'POST',
         headers: { "content-type": "application/json" },
@@ -916,16 +917,16 @@ class Cardapio {
       }
     });
   }
-selecionarCardapio(){
+  selecionarCardapio() {
 
-  let cardapio_input = document.getElementById('cardapio_input').value
-  if(cardapio_input != 'Selecione uma opção'){
-    localStorage.setItem("id_cardapio",cardapio_input )
+    let cardapio_input = document.getElementById('cardapio_input').value
+    if (cardapio_input != 'Selecione uma opção') {
+      localStorage.setItem("id_cardapio", cardapio_input)
+    }
+
   }
-
-}
-drop_cardapio(){
-  fetch('http://localhost:3031/cardapio/listar/' + localStorage.getItem("estabelecimento"), {
+  drop_cardapio() {
+    fetch('http://localhost:3031/cardapio/listar/' + localStorage.getItem("estabelecimento"), {
 
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -934,15 +935,27 @@ drop_cardapio(){
       return result.json()
     }).then(data => {
       for (let i = 0; i < data.cardapio.length; i++) {
-          let estabelecimento = document.createElement('option')
-          estabelecimento.setAttribute("value", data.cardapio[i].cardapio)
-          estabelecimento.innerHTML = `${[i]}`
-          document.getElementsByClassName("dropdown_estabelecimento")[0].appendChild(estabelecimento)
-        
+        let estabelecimento = document.createElement('option')
+        estabelecimento.setAttribute("value", data.cardapio[i].cardapio)
+        estabelecimento.innerHTML = `${[i]}`
+        document.getElementsByClassName("dropdown_estabelecimento")[0].appendChild(estabelecimento)
+
       }
     })
-}
+  }
   listaCardapio() {
+
+    if (localStorage.getItem('search') != '2') {
+      let search = document.createElement('div')
+      search.classList.add('pesquisa')
+      document.getElementsByClassName("inicio")[0].appendChild(search)
+      search.innerHTML = `
+      <input class="inputLine" type="search" id="buscar_produto" name="campo_busca"
+      placeholder="Buscar Por..." size="30" data-search>`
+      localStorage.setItem('search', 2)
+    }
+
+
 
     let tipo = document.getElementById('tipo').value
     fetch('http://localhost:3031/cardapio/tipo/' + tipo, {
@@ -959,7 +972,10 @@ drop_cardapio(){
       }).then(result => {
         return result.json();
       }).then(data => {
+
+        console.log(data)
         for (let i = 0; i < data.quantidade; i++) {
+
 
           let medidas = data.cardapio[i].id_medidas
           let marcas = data.cardapio[i].id_marcas
@@ -976,7 +992,6 @@ drop_cardapio(){
               return result.json()
             }).then(data => {
               marcas = data.marcas[0].marca
-
               fetch('http://localhost:3031/medida/pegar/' + medidas, {
                 headers: {
                   'Content-Type': 'application/json;charset=utf-8'
@@ -984,33 +999,52 @@ drop_cardapio(){
               }).then(result => {
                 return result.json()
               }).then(data => {
+
                 medidas = data.medidas[0].medida
 
                 let item = document.createElement('div')
                 item.classList.add('foi-bebida')
                 item.setAttribute('value', itens)
                 if (item.classList.contains('foi-comida') == false) {
-                  
+
                   let comida = document.getElementsByClassName('foi-comida')
                   for (let comer = 0; comer < comida.length; comer++) {
                     comida[comer].style.display = 'none'
                   }
 
                 }
-                item.innerHTML = ` <div class="div-cadastrado" id="bebida${itens}">
-                         <div class="span-cadastrado">
-                      <span class="nome-cadastrado" id="search_name">${marcas}</span>
-                      <span>${medidas}</span>
-                      <span>R$:${preco}</span>
-                  </div>
-                  <div class="btn-cadastrado">
-                      <button class="editarGrey" onclick="bebida.salvarBebida(${itens})">Editar</button>
-                      <button class="excluirRed" onclick="cardapio.excluirProduto(${itens})">Excluir</button>
-                  </div>
-                  </div>`
-                item
+                item.innerHTML = `<div class="div-cadastrado" id="bebida${itens}">
+                <div class="span-cadastrado">
+             <span class="nome-cadastrado" id="search_name">${marcas}</span>
+             <span>${medidas}</span>
+             <span>R$:${preco}</span>
+          </div>
+          <div class="btn-cadastrado">
+             <button class="editarGrey" onclick="bebida.salvarBebida(${itens})">Editar</button>
+             <button class="excluirRed" onclick="cardapio.excluirProduto(${itens})">Excluir</button>
+          </div>
+          </div>`
 
                 document.getElementsByClassName("inicio")[0].appendChild(item)
+                const searchInput = document.querySelector("[data-search]")
+
+                let list = document.getElementsByClassName('foi-bebida')
+                searchInput.addEventListener("input", (e) => {
+                  const value = e.target.value.toLowerCase();
+                  console.log(value)
+                  const books = list
+                  console.log(books)
+                  Array.from(books).forEach(function (book) {
+                    const title = book.firstElementChild.textContent;
+                    console.log(title)
+                    if (title.toLowerCase().indexOf(value) != -1) {
+                      book.style.display = 'block'
+                    } else {
+                      book.style.display = 'none'
+                    }
+                  })
+
+                })
               })
             })
           } else {
@@ -1045,10 +1079,29 @@ drop_cardapio(){
                   </div>
                   </div>`
 
-
+              const searchInput = document.querySelector("[data-search]")
               document.getElementsByClassName("inicio")[0].appendChild(item)
+              let list = document.getElementsByClassName('foi-comida')
+              searchInput.addEventListener("input", (e) => {
+                const value = e.target.value.toLowerCase();
+                console.log(value)
+                const books = list
+                console.log(books)
+                Array.from(books).forEach(function (book) {
+                  const title = book.firstElementChild.textContent;
+                  console.log(title)
+                  if (title.toLowerCase().indexOf(value) != -1) {
+                    book.style.display = 'block'
+                  } else {
+                    book.style.display = 'none'
+                  }
+                })
+
+              })
             })
           }
+
+
         }
       })
     })
@@ -1061,18 +1114,18 @@ drop_cardapio(){
   setarBebida() {
 
     localStorage.setItem('id_item_tipo', 1)
-    if(localStorage.getItem('id_cardapio') != null){
+    if (localStorage.getItem('id_cardapio') != null) {
       location.assign('/cardapio/bebida')
-    }else{
+    } else {
       alert('Selecione Um cardapio')
     }
 
   }
   setarComida() {
     localStorage.setItem('id_item_tipo', 2)
-    if(localStorage.getItem('id_cardapio') != null){
+    if (localStorage.getItem('id_cardapio') != null) {
       location.assign('/cardapio/comida')
-    }else{
+    } else {
       alert('Selecione Um cardapio')
     }
 
@@ -1279,16 +1332,16 @@ class Comida {
     location.assign('/cardapio/comida')
   }
   mostrarComida() {
-    if(localStorage.getItem('id_cardapio') == null){
+    if (localStorage.getItem('id_cardapio') == null) {
       alert('Escolha um Cardapio')
-    }else{
-      fetch('http://localhost:3031/medida',{
+    } else {
+      fetch('http://localhost:3031/medida', {
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
       }).then(data => {
         console.log(data)
-        for(let i = 0; i < data.bebida_medida.length; i++){
+        for (let i = 0; i < data.bebida_medida.length; i++) {
 
           let medida = document.createElement('option')
           medida.setAttribute('value', data.bebida_medida[i].medida)
@@ -1510,7 +1563,7 @@ class Bebida {
           });
         });
       });
-    }else{
+    } else {
       this.editarBebida()
     }
   }
@@ -1558,16 +1611,16 @@ class Bebida {
 
   }
   mostrarBebida() {
-    if(localStorage.getItem('id_cardapio') == null){
+    if (localStorage.getItem('id_cardapio') == null) {
       alert('Escolha um Cardapio')
-    }else{
+    } else {
 
-      fetch('http://localhost:3031/marca',{
+      fetch('http://localhost:3031/marca', {
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
       }).then(data => {
-        for(let i = 0; i < data.marcas.length; i++){
+        for (let i = 0; i < data.marcas.length; i++) {
           let marca = document.createElement('option')
           marca.setAttribute('value', data.marcas[i].marca)
           let marcao = document.getElementById('nome-marca')
@@ -1575,26 +1628,26 @@ class Bebida {
         }
 
       })
-      fetch('http://localhost:3031/bebidatipo',{
+      fetch('http://localhost:3031/bebidatipo', {
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
       }).then(data => {
-        
-        for(let i = 0; i < data.bebida_tipo.length; i++){
+
+        for (let i = 0; i < data.bebida_tipo.length; i++) {
           let tipo = document.createElement('option')
           tipo.setAttribute('value', data.bebida_tipo[i].bebida)
           let tipao = document.getElementById('nome-tipo')
           tipao.appendChild(tipo)
         }
       })
-      fetch('http://localhost:3031/medida',{
+      fetch('http://localhost:3031/medida', {
         headers: { "content-type": "application/json" }
       }).then(result => {
         return result.json();
       }).then(data => {
         console.log(data)
-        for(let i = 0; i < data.bebida_medida.length; i++){
+        for (let i = 0; i < data.bebida_medida.length; i++) {
 
           let medida = document.createElement('option')
           medida.setAttribute('value', data.bebida_medida[i].medida)
@@ -1613,7 +1666,7 @@ class Bebida {
         console.log(data)
         document.getElementById('preco').value = data.itens[0].preco
         document.getElementById('nome-tipo').value = data.itens[0].id_bebida_tipo
-        
+
         let medidas = data.itens[0].id_medidas
         let marcas = data.itens[0].id_marcas
         let bebida_tipo = data.itens[0].id_bebida_tipo
@@ -1639,7 +1692,7 @@ class Bebida {
         }).then(data => {
           medidas = data.medidas[0].medida
           document.getElementById('medida').value = medidas
-          
+
           fetch('http://localhost:3031/marca/pegar/' + marcas, {
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
@@ -1868,7 +1921,7 @@ class Comanda {
       close.valor = data.valorCriado.valor
       close.id_estabelecimento = data.valorCriado.id_estabelecimento
       alert("Retirada feita com sucesso")
-      setTimeout(function(){ window.location.href = "/mesa"; }, 1500)  
+      setTimeout(function () { window.location.href = "/mesa"; }, 1500)
     })
   }
   disponibilidade_mesa() {
@@ -1891,11 +1944,11 @@ class Comanda {
             for (let i = 0; i < data.quantidade; i++) {
               if (data.comanda[i].disponibilidade == 1) {
                 let situacao = document.getElementById('box' + '0' + mesa)
-                if(situacao == null){
+                if (situacao == null) {
                   situacao = document.getElementById('box' + '' + mesa)
                   situacao.style.backgroundColor = 'var(--vermelho)'
                   situacao.style.color = 'var(--branco)'
-                }           
+                }
                 situacao.style.backgroundColor = 'var(--vermelho)'
                 situacao.style.color = 'var(--branco)'
 
