@@ -388,6 +388,11 @@
     input[type="file"] {
         display: none;
     }
+    #imgPhoto{
+        margin-top: -27px;
+        width: 38px;
+        margin-left: 255px;
+    }
     .lulu {
         padding: 15px 10px;
         height: 48px;
@@ -731,7 +736,7 @@
         padding-left: 0;
     }
     .footerAdd {
-        padding-bottom: 56px;
+        padding-bottom: 46px;
     }
     .quantidadeAdd {
         width: 81px;

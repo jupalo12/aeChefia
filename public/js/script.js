@@ -196,6 +196,7 @@ class Usuario {
     }).then(result => {
       return result.json();
     }).then(data => {
+      console.log(data)
       usuario.id = data.usuarioCriado.id
       usuario.nome = data.usuarioCriado.nome;
       usuario.email = data.usuarioCriado.email
@@ -204,7 +205,7 @@ class Usuario {
       usuario.senha = data.usuarioCriado.hash
 
       this.arrayUsuario.push(usuario);
-      location.assign('/home')
+      //location.assign('/home')
 
     });
   }
@@ -760,6 +761,7 @@ class Funcionario {
     }).then(result => {
       return result.json();
     }).then(data => {
+      console.log(data)
 
       var searchBar = document.getElementById('campo_busca');
       var funcionario_buscar = data.funcionario
@@ -779,14 +781,14 @@ class Funcionario {
         const funcionarioHTML = funcionario_buscar
           .map((funcionario_buscar) => {
 
-            return `<div class="div-cadastrado">
+            return `<div class="div-cadastrado" id="funcionario_${funcionario_buscar.id_funcionario}">
               <div class="span-cadastrado">
               <span class="nome-cadastrado">${funcionario_buscar.nome_funcionario}</span>
               <span>${funcionario_buscar.email}</span>
           </div>
           <div class="btn-cadastrado">
-              <button class="editarGrey" onclick="ok()">Editar</button>
-              <button class="excluirRed" onclick="ok()">Excluir</button>
+              <button class="editarGrey" onclick="funcionario.editarFuncionario()">Editar</button>
+              <button class="excluirRed" onclick="funcionario.excluirFuncionario(${funcionario_buscar.id_funcionario})">Excluir</button>
           </div>
           </div>`;
           })
@@ -801,7 +803,21 @@ class Funcionario {
 
     })
   }
-  async adicionar() {
+  editarFuncionario(){
+
+  }
+  excluirFuncionario(id_funcionario){
+      fetch('http://localhost:3031/funcionario/remover/' + id_funcionario, {
+        method: 'DELETE',
+        headers: { "content-type": "application/json" }
+      }).then(result => {
+        return result.json();
+      }).then(data => {
+          let selecionado = document.getElementById('funcionario_' + id_funcionario)
+          selecionado.style.display = 'none'
+      })
+  }
+   adicionar() {
     let funcionario = {}
 
     funcionario.id = 0;
@@ -809,10 +825,11 @@ class Funcionario {
     funcionario.email = document.getElementById('email').value;
     funcionario.login = document.getElementById('login').value;
     funcionario.senha = document.getElementById('senha').value;
+    funcionario.confSenha = document.getElementById('confSenha').value;
     funcionario.id_estabelecimento = parseInt(localStorage.getItem('estabelecimento'))
     console.log(typeof (funcionario.id_estabelecimento))
     console.log(funcionario.id_estabelecimento)
-    fetch('http://localhost:3031/funcionario/inserido/', {
+    fetch('http://localhost:3031/funcionario/inserir/', {
       method: 'POST',
       headers:
         { "content-type": "application/json" },
@@ -823,9 +840,17 @@ class Funcionario {
       location.assign("/funcionario/sucesso")
     });
   }
+  verificaEstabelecimento(){
+   if(localStorage.getItem('estabelecimento') == null){
+    alert('Escolha um estabelecimento')
+   }else{
+    location.assign('/funcionario/cadastrar')
+   }
+  }
 
 
 }
+
 
 var funcionario = new Funcionario
 

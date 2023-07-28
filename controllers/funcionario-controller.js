@@ -134,20 +134,21 @@ exports.verifica = async ( req, res ) => {
 }
 
 exports.deleteFunc = async ( req, res ) => {
+
     try {
         const query = 'DELETE from funcionario WHERE id_funcionario = ?'
-        await mysql.execute( query, [ req.body.id_funcionario ] );
-        if ( error ) {
-            return res.status( 500 ).send( { Erro: error } )
-        }
+        const result = await mysql.execute( query, [ req.params.id_funcionario ] );
+
         const response = {
-            mensagem: 'Funcionario removido com sucesso'
+            mensagem: 'funcionario removido com sucesso',
+
         }
 
-        return res.status( 200 ).send( response );
+        return res.status( 201 ).send( response );
     }
     catch ( error ) {
-        return res.status( 500 ).send( error )
+        console.log(error)
+        return res.status( 500 ).send( { error: error } )
     }
 
 }

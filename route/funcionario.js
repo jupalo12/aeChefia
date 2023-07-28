@@ -2,7 +2,8 @@ const route = require('express').Router();
 
 const controller = require('../controllers/funcionario-controller');
 
-route.get('/cadastro', (req, res) => {
+route.get('/cadastrar', (req, res) => {
+    console.log('passei pór')
     res.sendFile(__basedir + '/public/pages/funcionario.html');
 })
 
@@ -17,7 +18,7 @@ route.get('/lista', (req, res) => {
 
 
 
-route.post('/inserido', controller.postFuncionario);
+route.post('/inserir', controller.postFuncionario);
 
 route.get('/todos', controller.getFunc);
 
@@ -25,7 +26,7 @@ route.get('/verifica', controller.verifica);
 
 route.get( '/quantidade/:id_estabelecimento', controller.getQuantidade);
 
-route.delete('/remover', controller.deleteFunc);
+route.delete('/remover/:id_funcionario', controller.deleteFunc);
 
 route.patch('/atualizar', controller.patchFunc);
 
