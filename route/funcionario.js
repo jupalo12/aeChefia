@@ -3,7 +3,6 @@ const route = require('express').Router();
 const controller = require('../controllers/funcionario-controller');
 
 route.get('/cadastrar', (req, res) => {
-    console.log('passei pór')
     res.sendFile(__basedir + '/public/pages/funcionario.html');
 })
 
@@ -29,5 +28,7 @@ route.get( '/quantidade/:id_estabelecimento', controller.getQuantidade);
 route.delete('/remover/:id_funcionario', controller.deleteFunc);
 
 route.patch('/atualizar', controller.patchFunc);
+
+
 
 module.exports = route;

@@ -205,7 +205,7 @@ class Usuario {
       usuario.senha = data.usuarioCriado.hash
 
       this.arrayUsuario.push(usuario);
-      //location.assign('/home')
+      location.assign('/home')
 
     });
   }
@@ -803,21 +803,21 @@ class Funcionario {
 
     })
   }
-  editarFuncionario(){
+  editarFuncionario() {
 
   }
-  excluirFuncionario(id_funcionario){
-      fetch('http://localhost:3031/funcionario/remover/' + id_funcionario, {
-        method: 'DELETE',
-        headers: { "content-type": "application/json" }
-      }).then(result => {
-        return result.json();
-      }).then(data => {
-          let selecionado = document.getElementById('funcionario_' + id_funcionario)
-          selecionado.style.display = 'none'
-      })
+  excluirFuncionario(id_funcionario) {
+    fetch('http://localhost:3031/funcionario/remover/' + id_funcionario, {
+      method: 'DELETE',
+      headers: { "content-type": "application/json" }
+    }).then(result => {
+      return result.json();
+    }).then(data => {
+      let selecionado = document.getElementById('funcionario_' + id_funcionario)
+      selecionado.style.display = 'none'
+    })
   }
-   adicionar() {
+  adicionar() {
     let funcionario = {}
 
     funcionario.id = 0;
@@ -840,12 +840,12 @@ class Funcionario {
       location.assign("/funcionario/sucesso")
     });
   }
-  verificaEstabelecimento(){
-   if(localStorage.getItem('estabelecimento') == null){
-    alert('Escolha um estabelecimento')
-   }else{
-    location.assign('/funcionario/cadastrar')
-   }
+  verificaEstabelecimento() {
+    if (localStorage.getItem('estabelecimento') == null) {
+      alert('Escolha um estabelecimento')
+    } else {
+      location.assign('/funcionario/cadastrar')
+    }
   }
 
 
@@ -1198,6 +1198,26 @@ class Comida {
     }
 
   }
+
+  procurarPedido() {
+
+    const searchInput = document.querySelector("[data-search]")
+    let list = document.getElementsByClassName('whatever')
+    searchInput.addEventListener("input", (e) => {
+      const value = e.target.value.toLowerCase();
+      const books = list
+      Array.from(books).forEach(function (book) {
+        const title = book.firstElementChild.textContent;
+        if (title.toLowerCase().indexOf(value) != -1) {
+          book.style.display = 'grid'
+        } else {
+          book.style.display = 'none'
+        }
+      })
+
+    })
+  }
+
   addComida(comida) {
     if (localStorage.getItem('item') == 'null') {
       fetch('http://localhost:3031/medida/' + comida.id_medidas, {
@@ -1273,8 +1293,8 @@ class Comida {
   }
   criarComida() {
     if (localStorage.getItem('id_cardapio') == undefined) {
-      document.getElementById('aviso').innerHTML = `<h2 style="color: #666666; text-align: center; padding-top: 2%;letter-spacing: 1px;" class="h2-Add">Selecione um
-      cardapio para ver as comidas<br>`
+      document.getElementById('aviso').innerHTML = `<a href="/cardapio/zerado"><h2 style="color: #666666; text-align: center; padding-top: 2%;letter-spacing: 1px;" class="h2-Add">Selecione um
+      cardapio para ver as comidas<br></a>`
     }
     fetch('http://localhost:3031/cardapio/item/' + localStorage.getItem('id_cardapio') + '/' + localStorage.getItem('id_item_tipo'), {
       method: 'GET',
@@ -1325,12 +1345,12 @@ class Comida {
 
           divElement.setAttribute('id', 'box' + id.toString());
           labelFor.setAttribute('for', 'box' + id.toString())
-          divElement.setAttribute("onclick", "comida.setarValor(" + id_itens_do_cardapio + ")");
-
+          divElement.setAttribute("onclick", "comida.setarValor(" + id_itens_do_cardapio + ", this)");
 
           labelFor.classList.add("whatever")
           divElement.classList.add("itens-cardapio")
           divElement.classList.add("bounceIn")
+          divElement.setAttribute('name', 'check');
           conteudoNovo.style.fontSize = "18px"
           conteudoNovo.style.lineHeight = "22px"
           conteudoNovo.style.letterSpacing = "-0.02em"
@@ -1349,8 +1369,17 @@ class Comida {
 
     })
   }
-  setarValor(id_itens_do_cardapio) {
+  onlyOne(checkbox) {
+    console.log('passei')
+    var checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+      if (item !== checkbox) item.checked = false
+    })
+  }
+  setarValor(id_itens_do_cardapio, checkbox) {
     localStorage.setItem("id_itens_do_cardapio", id_itens_do_cardapio)
+    this.onlyOne(checkbox)
+
   }
   salvarComida(item) {
     localStorage.setItem('item', item)
@@ -1504,12 +1533,14 @@ class Bebida {
 
             divElement.setAttribute('id', 'box' + id.toString());
             labelFor.setAttribute('for', 'box' + id.toString())
-            divElement.setAttribute("onclick", "bebida.setarValor(" + id_itens_do_cardapio + ")");
+            divElement.setAttribute("onclick", "bebida.setarValor(" + id_itens_do_cardapio + ", this)");
 
 
             labelFor.classList.add("whatever")
             divElement.classList.add("itens-cardapio")
             divElement.classList.add("bounceIn")
+            divElement.setAttribute('name', 'check');
+
             conteudoNovo.style.fontSize = "18px"
             conteudoNovo.style.lineHeight = "22px"
             conteudoNovo.style.letterSpacing = "-0.02em"
@@ -1531,12 +1562,18 @@ class Bebida {
 
     })
   }
-
-  setarValor(id_itens_do_cardapio) {
-
-    localStorage.setItem("id_itens_do_cardapio", id_itens_do_cardapio)
+  onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+      if (item !== checkbox) item.checked = false
+    })
   }
+  setarValor(id_itens_do_cardapio, checkbox) {
+    console.log(id_itens_do_cardapio, checkbox)
+    localStorage.setItem("id_itens_do_cardapio", id_itens_do_cardapio)
+    this.onlyOne(checkbox)
 
+  }
   addBebida(bebida) {
     if (localStorage.getItem('item') == 'null') {
       fetch('http://localhost:3031/bebidatipo/' + bebida.id_bebida_tipo, {
@@ -1769,12 +1806,15 @@ class Comanda {
       return result.json();
     }).then(data => {
       for (let i = 0; i < data.quantidade; i++) {
+        console.log(data)
+        if (data.comanda[i].disponibilidade == 1) {
+          let comandar = document.createElement('option')
+          comandar.setAttribute("value", data.comanda[i].id_comanda)
+          comandar.innerHTML = `${data.comanda[i].cliente}`
+          document.getElementsByClassName("dropdown_comanda")[0].appendChild(comandar)
+        }
 
 
-        let comandar = document.createElement('option')
-        comandar.setAttribute("value", data.comanda[i].id_comanda)
-        comandar.innerHTML = `${data.comanda[i].cliente}`
-        document.getElementsByClassName("dropdown_comanda")[0].appendChild(comandar)
       }
 
     })
@@ -1785,18 +1825,24 @@ class Comanda {
   }
 
   addPedido() {
-
+    let response;
     let pedido = {}
 
     pedido.quant = document.getElementById("quant").value
     pedido.id_comanda = localStorage.getItem('id_comanda')
     pedido.id_itens_do_cardapio = localStorage.getItem('id_itens_do_cardapio')
     pedido.id_estabelecimento = localStorage.getItem("estabelecimento")
-    fetch('http://localhost:3031/pedidocomanda/cadastro/', {
+    response = fetch('http://localhost:3031/pedidocomanda/cadastro/', {
       method: 'POST',
       headers: { "content-type": "application/json" },
       body: JSON.stringify(pedido)
+
     }).then(result => {
+      if(response?.ok){
+        
+      }else{
+        alert('Selecione um cliente')
+      }
       return result.json();
     }).then(data => {
       pedido.quant = data.pedidos.quant
@@ -1804,6 +1850,8 @@ class Comanda {
       pedido.id_itens_do_cardapio = data.pedidos.id_itens_do_cardapio
       pedido.id_estabelecimento = data.pedidos.id_estabelecimento
 
+
+localStorage.removeItem('id_itens_do_cardapio')
       location.assign('/comanda/cliente')
     })
   }
@@ -1872,9 +1920,11 @@ class Comanda {
 
     let data = new Date()
     document.getElementById("data_mesa").value = data.toString()
-    close.data_mesa = document.getElementById("data_mesa").value.replace("GMT-0300 (Horário Padrão de Brasília)", "")
+    close.data_mesas_fechadas = document.getElementById("data_mesa").value.replace("GMT-0300 (Horário Padrão de Brasília)", "")
     close.valor = document.getElementById("valor-comanda").value
+    close.id_comanda = localStorage.getItem('id_comanda')
     close.id_estabelecimento = localStorage.getItem('estabelecimento')
+    close.id_caixa = localStorage.getItem('caixa')
 
     fetch('http://localhost:3031/mesa/', {
       method: 'POST',
@@ -1884,9 +1934,7 @@ class Comanda {
     }).then(result => {
       return result.json();
     }).then(data => {
-      close.data_mesa = data.valorCriado.data_mesa
-      close.valor = data.valorCriado.valor
-      close.id_estabelecimento = data.valorCriado.id_estabelecimento
+      localStorage.removeItem('id_comanda')
       location.assign('/comanda/cliente')
     })
   }
@@ -1901,26 +1949,37 @@ class Comanda {
 
   }
   abrirCaixa() {
-    fetch('http://localhost:3031/mesa/valor/' + localStorage.getItem("estabelecimento"), {
+    fetch('http://localhost:3031/caixa/buscar/' + localStorage.getItem("caixa"), {
       method: 'GET',
-      headers:
-        { "content-type": "application/json" }
+      headers: { "content-type": "application/json" }
     }).then(result => {
       return result.json();
     }).then(data => {
-      let valor
-      for (let i = 0; i < data.caixa.length; i++) {
-        if (valor != undefined) {
-          valor += data.caixa[i].valor
-        } else {
-          valor = data.caixa[i].valor
-        }
-
-        document.getElementById('valor-caixa').innerHTML = `R$ ${valor}`
-        document.getElementById('valor-caixa').value = valor
-
+      if(data.status_caixa == 1){
+        fetch('http://localhost:3031/mesa/valor/' + localStorage.getItem("caixa"), {
+          method: 'GET',
+          headers:
+            { "content-type": "application/json" }
+        }).then(result => {
+          return result.json();
+        }).then(data => {
+          let valor
+          for (let i = 0; i < data.caixa.length; i++) {
+            if (valor != undefined) {
+              valor += data.caixa[i].valor
+            } else {
+              valor = data.caixa[i].valor
+            }
+    
+            document.getElementById('valor-caixa').innerHTML = `R$ ${valor}`
+            document.getElementById('valor-caixa').value = valor
+    
+          }
+        })
       }
     })
+
+
   }
 
   fazerRetirada() {
@@ -1928,11 +1987,12 @@ class Comanda {
 
     let data = new Date()
     document.getElementById("data_mesa").value = data.toString()
-    console.log()
-    close.data_mesa = document.getElementById("data_mesa").value.replace("GMT-0300 (Horário Padrão de Brasília)", "")
+    close.data_mesas_fechadas = document.getElementById("data_mesa").value.replace("GMT-0300 (Horário Padrão de Brasília)", "")
     close.valor = document.getElementById("retirada").value
-    console.log(close.valor)
+    close.id_comanda = localStorage.getItem('id_comanda')
     close.id_estabelecimento = localStorage.getItem('estabelecimento')
+    close.valor = -close.valor
+    console.log(Math.sign(close.valor))
 
     fetch('http://localhost:3031/mesa/', {
       method: 'POST',
@@ -1942,9 +2002,7 @@ class Comanda {
     }).then(result => {
       return result.json();
     }).then(data => {
-      close.data_mesa = data.valorCriado.data_mesa
-      close.valor = data.valorCriado.valor
-      close.id_estabelecimento = data.valorCriado.id_estabelecimento
+      console.log(data)
       alert("Retirada feita com sucesso")
       setTimeout(function () { window.location.href = "/mesa"; }, 1500)
     })
@@ -1997,3 +2055,59 @@ function auto() {
   }
 
 }
+
+class Caixa {
+
+  abrirCaixa() {
+    let caixa = {}
+
+    let data = new Date()
+    caixa.data_abertura = data.toString()
+
+    caixa.data_abertura = caixa.data_abertura.replace("GMT-0300 (Horário Padrão de Brasília)", "")
+    caixa.status_caixa = 1
+    caixa.id_estabelecimento = localStorage.getItem('estabelecimento')
+    caixa.valor = 0
+    console.log(caixa)
+    fetch('http://localhost:3031/caixa/abrir_caixa', {
+      method: 'POST',
+      headers:
+        { "content-type": "application/json" },
+      body: JSON.stringify(caixa)
+
+    }).then(result => {
+      return result.json();
+    }).then(data => {
+      localStorage.setItem('caixa', data.id_caixa)
+      console.log(data)
+      location.assign('/mesa')
+    })
+  }
+  fecharCaixa() {
+    let caixa = {}
+    caixa.valor = document.getElementById('valor-caixa').value
+    caixa.status_caixa = 0
+    caixa.id_estabelecimento = localStorage.getItem('estabelecimento')
+    caixa.id_caixa = localStorage.getItem('caixa')
+    console.log(caixa)
+
+
+    fetch('http://localhost:3031/caixa/fechar', {
+      method: 'PATCH',
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(caixa)
+    }).then(result => {
+      return result.json();
+    }).then(data => {
+      localStorage.removeItem('caixa')
+      alert('caixa fechado')
+       setTimeout(function () { window.location.href = "/dashboard"; }, 2200);
+
+    })
+  }
+
+}
+
+
+
+var caixa = new Caixa

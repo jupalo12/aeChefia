@@ -16,7 +16,7 @@ route.get('/fechar-caixa', (req, res) => {
 
 route.post('/', controller.postValor);
 
-route.get('/valor/:id_estabelecimento', controller.getUmCaixa);
+route.get('/valor/:id_caixa', controller.getUmCaixa);
 
 route.get('/disponibilidade/:mesa/:id_estabelecimento', controller.getDisponibilidade);
 

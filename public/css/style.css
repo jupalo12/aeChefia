@@ -50,6 +50,9 @@
         text-align: center;
         line-height: 90vh;
     }
+    .barra{
+        width: 375px;
+    }
     .splash.display-none {
         position: fixed;
         top: 0;

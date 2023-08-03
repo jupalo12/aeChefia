@@ -3,12 +3,14 @@ const mysql = require( '../mysql' );
 exports.postValor = async ( req, res ) => {
     try {
 
-        const query = `INSERT INTO mesas_fechadas(data_mesa,valor,id_estabelecimento ) VALUES (?,?,?)`;
+        const query = `INSERT INTO mesas_fechadas(data_mesas_fechadas,valor,id_comanda, id_estabelecimento, id_caixa ) VALUES (?,?,?,?,?)`;
         const results = await mysql.execute( query,
             [
-                req.body.data_mesa,
+                req.body.data_mesas_fechadas,
                 req.body.valor,
-                req.body.id_estabelecimento
+                req.body.id_comanda,
+                req.body.id_estabelecimento,
+                req.body.id_caixa
             ] )
         const response = {
 
@@ -16,8 +18,9 @@ exports.postValor = async ( req, res ) => {
             Mensagem: 'Mesa fechada com sucesso!',
             valorCriado: {
                 id_mesas_fechadas: results.insertId,
-                data_mesa: req.body.data_mesa,
+                data_mesa_fechadas: req.body.data_mesa_fechadas,
                 valor: req.body.valor,
+                id_comanda: req.body.id_comanda,
                 id_estabelecimento: req.body.id_estabelecimento
             }
         }
@@ -32,9 +35,9 @@ exports.postValor = async ( req, res ) => {
 }
 exports.getUmCaixa = async (req, res) => {
     try {
-        const query = `SELECT * FROM mesas_fechadas WHERE id_estabelecimento = ?;`
+        const query = `SELECT * FROM mesas_fechadas WHERE id_caixa = ?;`
 
-        const result = await mysql.execute(query, [req.params.id_estabelecimento]);
+        const result = await mysql.execute(query, [req.params.id_caixa]);
 
         const response = {
             caixa: result.map(ped => {
