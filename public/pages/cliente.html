@@ -16,17 +16,17 @@
     <title>Inserir comida</title>
 </head>
 
-<body onload="jwt_auth_load(); ">
+<body onload="jwt_auth_load(), cliente.comandaCliente()  ; ">
     <header class="headerMenor">
         <img src="../img/logo.png" alt="">
         <span class="spanHome">mesa: 08</span>
     </header>
-    <span class="spanHome">itens</span>
+    <span class="spanHome" id="itens">itens</span>
     <img class="barra" src="../img//Line 3.png"></img>
     <div class="pedidos"></div>
     <img class="barra" src="../img//Line 3.png"></img>
     <footer class="divcenter footer footerAdd">   
-        <span>total</span><br>
+        <span id="total">total</span><br>
     </footer>
     <div class="divAnuncio" id="divAnuncio">Acesse o site por um dispositivo mobile</div>
 </body>

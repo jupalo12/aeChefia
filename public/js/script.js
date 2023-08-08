@@ -886,18 +886,25 @@ class Cardapio {
     })
   }
 
-  addCardapio() {
+  addCardapio(cardapio) {
     if (localStorage.getItem('estabelecimento') == null) {
       alert('escolha um estabelecimento')
     } else {
-      fetch('http://localhost:3031/cardapio/cadastro/' + localStorage.getItem('estabelecimento'), {
+      let nome = document.getElementById('nome').value
+      fetch('http://localhost:3031/cardapio/cadastro/' + localStorage.getItem('estabelecimento') + '/' + nome, {
         method: 'POST',
         headers: { "content-type": "application/json" },
       }).then(result => {
         return result.json();
       }).then(data => {
+        console.log(cardapio)
         localStorage.setItem('id_cardapio', data.cardapioCriado.id_cardapio)
-        location.assign('/cardapio/zerado')
+      /*  if(cardapio == 1 ){
+          this.setarBebida()
+        }else{
+          this.setarComida()
+        }*/
+        
       })
     }
 
@@ -1139,20 +1146,13 @@ class Cardapio {
   setarBebida() {
 
     localStorage.setItem('id_item_tipo', 1)
-    if (localStorage.getItem('id_cardapio') != null) {
       location.assign('/cardapio/bebida')
-    } else {
-      alert('Selecione Um cardapio')
-    }
 
   }
   setarComida() {
     localStorage.setItem('id_item_tipo', 2)
-    if (localStorage.getItem('id_cardapio') != null) {
       location.assign('/cardapio/comida')
-    } else {
-      alert('Selecione Um cardapio')
-    }
+
 
   }
 
@@ -1839,8 +1839,6 @@ class Comanda {
 
     }).then(result => {
       if(response?.ok){
-        
-      }else{
         alert('Selecione um cliente')
       }
       return result.json();
@@ -1851,7 +1849,8 @@ class Comanda {
       pedido.id_estabelecimento = data.pedidos.id_estabelecimento
 
 
-localStorage.removeItem('id_itens_do_cardapio')
+      localStorage.removeItem('id_itens_do_cardapio')
+      localStorage.removeItem('id_comanda')
       location.assign('/comanda/cliente')
     })
   }
@@ -2111,3 +2110,66 @@ class Caixa {
 
 
 var caixa = new Caixa
+
+class Cliente {
+
+
+  comandaCliente(){
+    
+    fetch('http://localhost:3031/cliente/buscar/' + localStorage.getItem('id_comanda'), {
+      method: 'GET',
+      headers: { "content-type": "application/json" }
+    }).then(result => {
+      return result.json();
+    }).then(data => {
+      console.log(data.comanda)
+      document.getElementById("itens").innerHTML += " " + data.comanda.length
+      let total = 0
+      for (let i = 0; i < data.comanda.length; i++) {
+        let valuation =  data.comanda[i].quantidade * data.comanda[i].preco
+        let conta = document.createElement('div')
+        let quantidade = data.comanda[i].quantidade
+        let med = data.comanda[i].medidas
+        total += valuation
+        fetch('http://localhost:3031/marca/pegar/' + data.comanda[i].marca, {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          }
+        }).then(result => {
+          return result.json()
+        }).then(data => {
+
+         let marcas = data.marcas[0].marca
+          fetch('http://localhost:3031/medida/pegar/' + med, {
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            }
+          }).then(result => {
+            return result.json()
+          }).then(data => {
+
+           let medidas = data.medidas[0].medida
+           conta.classList.add('div-cadastrado')
+
+           conta.innerHTML = `<div class="span-cadastrado">
+           <span class="nome-cadastrado"> ${marcas + ' ' +medidas}</span>
+           <span>${quantidade} X</span>
+           <span>${valuation}</span>
+       </div>`
+      
+   
+       document.getElementsByClassName("pedidos")[0].appendChild(conta)
+          })
+        })
+       
+  
+
+      }
+      console.log(total)
+      document.getElementById("total").innerHTML += " " + total
+
+    })
+  }
+}
+
+var cliente  = new Cliente

@@ -5,8 +5,8 @@ const mysql = require( '../mysql' );
 exports.postCardapio = async ( req, res ) => {
     try {
 
-        const query = 'INSERT INTO cardapio (id_estabelecimento) VALUES (?);'
-        const result = await mysql.execute( query, [req.params.id_estabelecimento] );
+        const query = 'INSERT INTO cardapio (id_estabelecimento, nome) VALUES (?,?);'
+        const result = await mysql.execute( query, [req.params.id_estabelecimento, req.params.nome ] );
 
         const response = {
             mensagem: 'Cardapio inserido com sucesso',

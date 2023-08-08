@@ -37,12 +37,16 @@
     <div class="inputSpacing"></div>
     <span class="spanHome">Cadastre um cardápio</span>
     <div class="inputSpacing"></div>
+    <label>Nome do Cardápio</label>
+    <input style="width: 100%;" class="inputLine" type="text"  
+     size="20" id="nome">
     <div class="div-cardapio" >
+  
     
       
         <a class="cardapio-item"   >
             
-            <button style="border: none; background-color: #e5e5e500;" input type="submit" onclick="cardapio.setarBebida()" id="esconder" value="bebida"> 
+            <button style="border: none; background-color: #e5e5e500;" input type="submit" onclick="cardapio.addCardapio(1)" id="esconder" value="bebida"> 
                 
                 <img class="img-cardapio" src="../img/bebida.png" alt="">
                 <h1 class="h1-bebida">Bebida</h1>
@@ -50,18 +54,18 @@
         </a>
         <a class="cardapio-item"  >
             
-            <button style="border:none;background-color: #e5e5e500;" input type="submit" onclick="cardapio.setarComida()" id="esconder2" value="comida" >
+            <button style="border:none;background-color: #e5e5e500;" input type="submit" onclick="cardapio.addCardapio(2)" id="esconder2" value="comida" >
                 
                 <img class="img-cardapio" src="../img/comida.png" alt="">
                 <h1 class="h1-comida">Comida</h1>
             </button></a>
     </div>
-<div class="inputs">
+<!--<div class="inputs">
     <label style="width: auto;" class="label-listas">Cardápios cadastrados</label>
     <select style="color: #666666;" name="Bares" onchange="cardapio.selecionarCardapio()" id="cardapio_input" type="text" class="dropdown_estabelecimento">
         <option>Selecione uma opção</option>
       </select>
-<div class="inputSpacing"></div>
+<div class="inputSpacing"></div>-->
 
 </div>
 
