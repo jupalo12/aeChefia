@@ -13,27 +13,26 @@
 
 </head>
 
-<body onload="comanda.abrirCaixa()">
+<body onload="jwt_auth_load(); comanda.abrirCaixa()">
     <header class="headerMenor">
         <img src="../img/logo.png" alt="">
         <nav role="navigation">
             <div id="menuToggle">
-
-                <input onclick="Menu()" id="menu-js" type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
-                <ul id="menu">
-                    <a href="#"><li><a href="/dashboard">Home</a></li></a>
-                    <a href="#"><li><a href="/administrar">Adm</a></li></a>
-                    <a href="#" ><li> <a href="/">Login</a></li></a>
-                    <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
-                    <a href="#">
+      
+              <input onclick="Menu()" id="menu-js" type="checkbox" />
+              <span></span>
+              <span></span>
+              <span></span>
+              <ul id="menu">
+                <a href="#"><li><a href="/dashboard">Home</a></li></a>
+                <a href="#"><li><a href="/administrar">Adm</a></li></a>
+                <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
+                <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
             <li><a onclick="logout()">Logout</a></li>
-          </a>
-                  </ul>
+      
+              </ul>
             </div>
-        </nav>
+          </nav>
     </header>
 
     <div class="divRetirada fadeIn">
@@ -43,7 +42,7 @@
             <div class="btnRetirada">
                 
                <a href="/mesa"><button class="btn borderBtn inverseBtn" style="width: 35%;background: white;" >Cancelar</button></a> 
-                <button class="btn redBtn redBtn-cad" style="width: 60%;margin-left: 3%;" onclick="ok()">Fechar caixa</button><br>
+                <button class="btn redBtn redBtn-cad" style="width: 60%;margin-left: 3%;" onclick="caixa.fecharCaixa()">Fechar caixa</button><br>
             </div>
         </div>
 

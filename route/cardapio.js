@@ -48,7 +48,7 @@ route.get( '/item/:id_cardapio', controller.getItem);
 
 route.get( '/tipo/:tipo', controller.getTipo);
 
-route.post( '/cadastro/:id_estabelecimento', controller.postCardapio );
+route.post( '/cadastro/:id_estabelecimento/:nome', controller.postCardapio );
 
 route.patch( '/atualizar', controller.patchCardapio );
 

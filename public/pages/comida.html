@@ -20,23 +20,22 @@
     <header class="headerMenor">
         <img src="../img/logo.png" alt="">
         <nav role="navigation">
-          <div id="menuToggle">
-
-            <input onclick="Menu()" id="menu-js" type="checkbox" />            
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id="menu">
+            <div id="menuToggle">
+      
+              <input onclick="Menu()" id="menu-js" type="checkbox" />
+              <span></span>
+              <span></span>
+              <span></span>
+              <ul id="menu">
                 <a href="#"><li><a href="/dashboard">Home</a></li></a>
                 <a href="#"><li><a href="/administrar">Adm</a></li></a>
-                <a href="#" ><li> <a href="/">Login</a></li></a>
+                <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
                 <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
-                <a href="#">
             <li><a onclick="logout()">Logout</a></li>
-          </a>
+      
               </ul>
-          </div>
-        </nav>
+            </div>
+          </nav>
     </header>
     <div class="inputSpacing"></div>
     <span class="spanHome">Inserir comida</span>
@@ -46,7 +45,9 @@
        <label style=" place-self: inherit;width: 83%;color: #666666;">Nome</label>
         <input class="inputLine" placeholder="Ex: Ribs Fries" type="text" id="comida" > <br>
         <label style=" place-self: inherit;width: 83%;color: #666666;">Tipo de porção</label>
-        <input class="inputLine" placeholder="Ex: M" type="text" id="medida"> <br>
+        <input style="color: black;" class="dropdown inputLine" placeholder="Selecione uma opção" type="text" id="medida" list="nome-medida"> <br>
+        <datalist id="nome-medida">
+        </datalist>
         <label style=" place-self: inherit;width: 83%;color: #666666;">Valor da venda</label>
         <!-- <input class="inputLine" placeholder="" type="text"> <br> -->
         <div style="width: 87%;" class="input-icon" style="text-align: center;">

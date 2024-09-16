@@ -2,11 +2,6 @@ node_modules/
 
 uploads/
 
-arquive.html
-
-merda.sql
-
-rotaExemplo.js
 
 <<<<<<< HEAD
 mysql.js
@@ -14,16 +9,6 @@ mysql.js
 nodemon.json
 
 .env
-
-localsession.sql
-
-app.js
-=======
-.env
-
-mysql.js
-
-ok
 
 nodemon.json
 

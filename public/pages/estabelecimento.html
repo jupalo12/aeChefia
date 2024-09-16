@@ -16,18 +16,17 @@
     <nav role="navigation">
       <div id="menuToggle">
 
-        <input onclick="Menu()" id="menu-js" type="checkbox" />            
+        <input onclick="Menu()" id="menu-js" type="checkbox" />
         <span></span>
         <span></span>
         <span></span>
         <ul id="menu">
           <a href="#"><li><a href="/dashboard">Home</a></li></a>
           <a href="#"><li><a href="/administrar">Adm</a></li></a>
-          <a href="#" ><li> <a href="/">Login</a></li></a>
+          <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
           <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
-          <a href="#">
-            <li><a onclick="logout()">Logout</a></li>
-          </a>
+      <li><a onclick="logout()">Logout</a></li>
+
         </ul>
       </div>
     </nav>
@@ -42,30 +41,76 @@
         <br>
     </label>
     <label style="width: 87%;place-self: center;display: inline-table;" class="lulu" for="logo">Logo
-        <input class="inputLine" id="logo" name="logo" placeholder="logo" type="file" required>
-        <button class="btnImg" disabled></button>
+      <div class="max-width">
+        <div class="imageContainer">
+            <img src="../img/imgFile.png" alt="Selecione uma imagem" id="imgPhoto">
+        </div>
+    </div>
+
+    <input type="file" id="logo" name="fImage" accept="image/*">
+
     <br>
     </label>
+    <script>
+let photo = document.getElementById('imgPhoto');
+let file = document.getElementById('logo');
+      
+      photo.addEventListener('click', () => {
+          file.click();
+      });
+      
+      file.addEventListener('change', () => {
+      
+          if (file.files.length <= 0) {
+              return;
+          }
+      
+          let reader = new FileReader();
+      
+          reader.onload = () => {
+              photo.src = reader.result;
+              photo.style.width = '75px'
+              photo.style.marginTop = '-80px'
+              photo.style.marginLeft = '228px'
+          }
+      
+          reader.readAsDataURL(file.files[0]);
+      });
+          </script>
     <span id="erromail"></span>
     <label for="CEP">
-      <input class="inputLine" id="cep" name="CEP" maxlength="10" placeholder="CEP" type="text" onkeydown="javascript: fMasc( this, mCEP );"
+      <input onblur="completar()" class="inputLine" id="cep" name="CEP" maxlength="10" placeholder="CEP" type="text" onkeydown="javascript: fMasc( this, mCEP );"
           required><br>
   </label>
+  <script>
+    function completar() {
+      console.log('vitoria')
+    const cep = document.getElementById("cep")
+    let search = cep.value.replace("-", "")
+    search = search.replace(".", "")
+    console.log(search)
+    fetch(`https://viacep.com.br/ws/${search}/json/`, options).then((response) => {
+        response.json().then(data => {
+          if(data.logradouro == ''){
+            let endereco = [data.localidade, data.uf]
+            
+            document.getElementById('endereco').value = endereco
+          }else{
+            let endereco = [data.logradouro, data.bairro, data.localidade, data.uf]
+          document.getElementById('endereco').value = endereco
+          }
+
+
+        })
+    })
+}
+
+  </script>
   <label for="Endereço">
-    <input class="inputLine" id="endereco" name="Endereço"  placeholder="Endereço" type="text"
+    <input class="inputLine" id="endereco" name="Endereco"  placeholder="Endereço" type="text" value=""
         required><br>
 </label>
 </div>
-<div>
-  <div id="myModal" class="modal">
-      <div class="modal-content">
-          <span onclick="reset()" class="close">&times;</span>
-          <h1>Confirme os dados do estabelecimento</h1>
-          <img src="" id="imgModal">
-      </div>
-  </div>
-</div>
-<button onclick="Modal()">modal</button>
 
   <footer class="divcenter footer footerAdd">
     <h1 class="divcenter">Mesas disponíveis:</h1>
@@ -75,7 +120,7 @@
         <input type="button" class="input-menos" id="minus" value='+' onclick="process(1)">
       </div> 
 
-      <a href="../pages/estabelecimento-sucesso.html"><button  class="btn redBtn redBtn-cad" onclick="estabelecimento.cadastrar()">Cadastrar estabelecimento</button><br></a>
+      <button  class="btn redBtn redBtn-cad" onclick="estabelecimento.cadastrar()">Cadastrar estabelecimento</button><br>
 </footer>
 <div class="divAnuncio" id="divAnuncio">Acesse o site por um dispositivo mobile</div>
 </body>

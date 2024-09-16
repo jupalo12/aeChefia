@@ -27,9 +27,12 @@ const upload = multer( {
 } );
 
 route.get( '/', ( req, res ) => {
-    proprietario
     res.sendFile( __basedir + '/public/pages/estabelecimento.html' );
 } )
+
+route.get('/sucesso', (req, res) => {
+    res.sendFile(__basedir + '/public/pages/estabelecimento-sucesso.html')
+})
 
 route.get( '/todos', controller.getEstabelecimento );
 

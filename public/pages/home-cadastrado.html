@@ -30,7 +30,7 @@
           <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
           <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
       <li><a onclick="logout()">Logout</a></li>
-
+      <a href="#"><li><a href="/estabelecimento">Novo Estabelecimento</a></li></a>
         </ul>
       </div>
     </nav>
@@ -42,7 +42,7 @@
     <select name="Bares" onchange="estabelecimento.selecionar_estabelecimento()" id="estab_input" type="text" class="dropdown_estabelecimento">
       <option>Escolha o Estabelecimento</option>
     </select>
-   <a href="/mesa"><button class="btn borderBtn inverseBtn">Abrir caixa</button>      </a>   
+  <button class="btn borderBtn inverseBtn" onclick="caixa.abrirCaixa()">Abrir caixa</button> 
     <div class="footer footerAdd">
     <h2 id="spanFunction" style="display: none;"  class="h2-Add">Você ainda não possui cardápios <br> 
       e funcionários cadastrados:</h1>
@@ -52,7 +52,7 @@
           <div class="card">
             <div class="card-div">
               <span class="spanAdd">Funcionários</span>
-              <a href="/funcionario"><button class="btnAdd">+</button></a>
+             <button class="btnAdd" onclick="funcionario.verificaEstabelecimento()">+</button>
               <input id="quantidade1" class="quantidadeAdd" type="text" value="" disabled />
 
             </div>
@@ -60,7 +60,7 @@
           <div class="card">
             <div class="card-div">
               <span class="spanAdd">Cardápios</span>
-              <a> <button class="btnAdd" onclick="cardapio.addCardapio()">+</button></a>
+              <a> <button class="btnAdd" >+</button></a>
               <input id="quantidade2" class="quantidadeAdd" type="text" value="" disabled />
             </div>
           </div>

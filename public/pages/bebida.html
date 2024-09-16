@@ -21,22 +21,21 @@
         <img src="../img/logo.png" alt="">
         <nav role="navigation">
             <div id="menuToggle">
-
-                <input onclick="Menu()" id="menu-js" type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
-                <ul id="menu">
-                    <a href="#"><li><a href="/dashboard">Home</a></li></a>
-                    <a href="#"><li><a href="/administrar">Adm</a></li></a>
-                    <a href="#" ><li> <a href="/">Login</a></li></a>
-                    <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
-                    <a href="#">
+      
+              <input onclick="Menu()" id="menu-js" type="checkbox" />
+              <span></span>
+              <span></span>
+              <span></span>
+              <ul id="menu">
+                <a href="#"><li><a href="/dashboard">Home</a></li></a>
+                <a href="#"><li><a href="/administrar">Adm</a></li></a>
+                <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
+                <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
             <li><a onclick="logout()">Logout</a></li>
-          </a>
-                  </ul>
+      
+              </ul>
             </div>
-        </nav>
+          </nav>
     </header>
     <div class="inputSpacing"></div>
 
@@ -49,23 +48,17 @@
         <input id="tipo_bebida" style="color: black;" type="text" placeholder="Selecione uma opção" class="dropdown inputLine"
             name="Tipo" list="nome-tipo">
         <datalist id="nome-tipo">
-            <option id="nome-tipo" value="Cerveja">
-            <option value="whisky">
-            <option value="vodka">
-            <option value="cachaça">
-            <option value="vinho">
-            <option value="suco">
         </datalist>
 
         <label style=" place-self: inherit;width: 84%;color: #666666;">Marca</label>
         <input id="marca" style="color: black;" type="text" placeholder="Selecione uma opção" class="dropdown inputLine"
             name="marca" list="nome-marca">
         <datalist id="nome-marca">
-            <option value="marca1">
-            <option value="marca2">
         </datalist>
         <label style=" place-self: inherit;width: 84%;color: #666666;">Medida/Unidade</label>
-        <input class="inputLine" placeholder="Ex: 600ml" type="text" id="medida"> <br>
+        <input style="color: black;" class="dropdown inputLine" placeholder="Selecione uma opção" type="text" id="medida" list="nome-medida"> <br>
+        <datalist id="nome-medida">
+        </datalist>
         <label style=" place-self: inherit;width: 84%;color: #666666;">Valor da venda</label>
         <!-- <input class="inputLine" placeholder="" type="text"> <br> -->
         <div style="width: 87%;" class="input-icon" style="text-align: center;">

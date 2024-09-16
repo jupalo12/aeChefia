@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="bebida.criarBebida()">
+<body onload="jwt_auth_load(); bebida.criarBebida()">
   <header class="headerMenor">
     <img src="../img/logo.png" alt="">
     <nav role="navigation">
@@ -21,21 +21,12 @@
         <span></span>
         <span></span>
         <ul id="menu">
-          <a href="#">
-            <li><a href="/dashboard">Home</a></li>
-          </a>
-          <a href="#">
-            <li><a href="/administrar">Adm</a></li>
-          </a>
-          <a href="#">
-            <li> <a href="/">Login</a></li>
-          </a>
-          <a href="#">
-            <li> <a href="/mesa">Mesas</a> </li>
-          </a>
-          <a href="#">
-            <li><a onclick="logout()">Logout</a></li>
-          </a>
+          <a href="#"><li><a href="/dashboard">Home</a></li></a>
+          <a href="#"><li><a href="/administrar">Adm</a></li></a>
+          <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
+          <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
+      <li><a onclick="logout()">Logout</a></li>
+
         </ul>
       </div>
     </nav>
@@ -44,8 +35,8 @@
   <div class="inputs">
     <form>
       <div style="width: 87%;">
-        <input style="width: 100%;" class="inputLine" type="search" id="campo_busca" name="campo_busca"
-          placeholder="Buscar bebidas" size="30">
+        <input style="width: 100%;" class="inputLine" type="search"  name="campo_busca"
+          placeholder="Buscar bebidas" size="30" data-search onkeyup="comida.procurarPedido()">
       </div>
     </form>
   </div>

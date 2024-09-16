@@ -12,25 +12,26 @@
     <title>Lista de Funcionários</title>
 </head>
 
-<body class="inicio" onload="funcionario.listaFuncionario()">
+<body class="inicio" onload="jwt_auth_load(); funcionario.listaFuncionario()">
     <header class="headerMenor">
         <img src="../img/logo.png" alt="">
         <nav role="navigation">
-          <div id="menuToggle">
-
-            <input onclick="Menu()" id="menu-js" type="checkbox" />            
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id="menu">
+            <div id="menuToggle">
+      
+              <input onclick="Menu()" id="menu-js" type="checkbox" />
+              <span></span>
+              <span></span>
+              <span></span>
+              <ul id="menu">
                 <a href="#"><li><a href="/dashboard">Home</a></li></a>
                 <a href="#"><li><a href="/administrar">Adm</a></li></a>
                 <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
                 <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
             <li><a onclick="logout()">Logout</a></li>
+      
               </ul>
-          </div>
-        </nav>
+            </div>
+          </nav>
     </header>
 
     <div class="inputSpacing"></div>
@@ -55,8 +56,8 @@
         <label class="label-listas" style="width: auto;">Funcionários cadastrados</label>
          <form>
             <div style="width: 87%;">
-              <input  style="width: 100%;"  class="inputLine" type="search" id="campo_busca" name="campo_busca"
-              placeholder="Buscar bebidas" size="30">
+              <input   class="inputLine" type="search" id="campo_busca" name="campo_busca"
+              placeholder="Buscar Funcionários" size="30">
             </div>
           </form>
     </div>

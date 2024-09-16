@@ -20,6 +20,8 @@ app.use( '/css', express.static( __dirname + 'public/css' ) );
 app.use( '/js', express.static( __dirname + 'public/js' ) );
 app.use( '/img', express.static( __dirname + 'public/img' ) );
 
+
+const rotaCliente = require( './route/cliente' );
 const rotaCadastro = require( './route/cadastro' );
 const rotaHome = require( './route/home' )
 const rotaMesa = require( './route/mesa' )
@@ -38,6 +40,7 @@ const rotaComanda = require( './route/comanda' );
 const rotaPedidoComanda = require( './route/pedido_comanda' );
 const rotaDashboard = require('./route/dashboard');
 const rotaMarca = require('./route/marca');
+const rotaCaixa = require('./route/caixa');
 
 
 app.use('/dashboard', rotaDashboard);
@@ -56,8 +59,10 @@ app.use( '/home', rotaHome );
 app.use( '/mesa', rotaMesa );
 app.use( '/cardapio', rotaCardapio );
 app.use( '/funcionario', rotaFuncionario );
+app.use( '/cliente', rotaCliente );
 app.use( '/proprietario', rotaProprietario );
-app.use( '/marca', rotaMarca ) ;
+app.use( '/marca', rotaMarca );
+app.use( '/caixa', rotaCaixa );
 
 
 app.get( '/', ( req, res ) => {

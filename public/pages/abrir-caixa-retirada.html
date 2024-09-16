@@ -13,35 +13,26 @@
 
 </head>
 
-<body>
+<body onload="jwt_auth_load();">
     <header class="headerMenor">
         <img src="../img/logo.png" alt="">
         <nav role="navigation">
             <div id="menuToggle">
-
-                <input onclick="Menu()" id="menu-js" type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
-                <ul id="menu">
-                    <a href="#">
-                        <li><a href="/dashboard">Home</a></li>
-                    </a>
-                    <a href="#">
-                        <li><a href="/administrar">Adm</a></li>
-                    </a>
-                    <a href="#">
-                        <li> <a href="/">Login</a></li>
-                    </a>
-                    <a href="#">
-                        <li> <a href="/mesa">Mesas</a> </li>
-                    </a>
-                    <a href="#">
-                        <li><a onclick="logout()">Logout</a></li>
-                    </a>
-                </ul>
+      
+              <input onclick="Menu()" id="menu-js" type="checkbox" />
+              <span></span>
+              <span></span>
+              <span></span>
+              <ul id="menu">
+                <a href="#"><li><a href="/dashboard">Home</a></li></a>
+                <a href="#"><li><a href="/administrar">Adm</a></li></a>
+                <a href="#" ><li> <a href="/cardapio/zerado">Cardápio</a></li></a>
+                <a href="#"><li> <a href="/mesa">Mesas</a> </li></a>
+            <li><a onclick="logout()">Logout</a></li>
+      
+              </ul>
             </div>
-        </nav>
+          </nav>
     </header>
     <div class="divAnuncio" id="divAnuncio">Acesse o site por um dispositivo mobile</div>
     <div class="divRetirada">
@@ -53,9 +44,9 @@
             </div>
             <div class="btnRetirada">
 
-                <button class="btn borderBtn inverseBtn" style="width: 35%;background: white;"
-                    onclick="ok()">Cancelar</button>
-                <button class="btn redBtn redBtn-cad" style="width: 60%;margin-left: 3%;"
+                <a href="/mesa"><button class="btn borderBtn inverseBtn" style="width: 35%;background: white;"
+                    >Cancelar</button></a>
+                <button class="btn redBtn redBtn-cad" id="data_mesa" style="width: 60%;margin-left: 3%;"
                     onclick="comanda.fazerRetirada()">Confirmar retirada</button><br>
             </div>
         </div>
